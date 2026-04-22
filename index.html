@@ -1,23 +1,604 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+ <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "인터넷 설치 및 출장 AS 서비스",
+      "provider": {
+        "@type": "Organization",
+        "name": "전국 인터넷 출장 센터",
+        "url": "https://yourdomain.com",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+82-10-1234-5678",
+          "contactType": "고객 서비스"
+        }
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "대한민국 전국"
+      },
+      "description": "2026년 최신 인터넷 설치 가격, AS 비용 및 전국 당일 출장 서비스 안내. SKT, KT, LGU+ 통신사별 비교 견적 및 현금 지원 혜택을 제공합니다.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "인터넷 출장 서비스 가격",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "신규 인터넷 가입 및 설치"
+            },
+            "price": "0",
+            "priceCurrency": "KRW",
+            "description": "통신사 약정 가입 시 설치비 면제 및 현금 사은품 제공"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "인터넷 고장 출장 AS"
+            },
+            "price": "15000",
+            "priceCurrency": "KRW",
+            "description": "인터넷 고장 진단 및 수리 출장 서비스 (통신사별 정책에 따라 상이)"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "인터넷 속도 업그레이드 출장"
+            },
+            "price": "10000",
+            "priceCurrency": "KRW",
+            "description": "기존 인터넷 속도 업그레이드 상담 및 방문 지원"
+          }
+        ]
+      }
+    }
+    </script>
+
+    <!-- Google Fonts for better readability -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      /* Base Style Reset */
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        background-color: #f4f7f6;
+        color: #333;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1, h2, h3 {
+        color: #004d40; /* Dark Teal */
+        font-weight: 700;
+      }
+      p {
+        margin-bottom: 1rem;
+      }
+
+      /* Layout Elements */
+      header {
+        background-color: #004d40; /* Dark Teal */
+        color: white;
+        padding: 2rem 1rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'); /* Pexels image URL */
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.3);
+        z-index: 1;
+      }
+      header h1 {
+        position: relative;
+        z-index: 2;
+        font-size: 2.5rem;
+        color: white;
+        margin-bottom: 0.5rem;
+      }
+      header p {
+        position: relative;
+        z-index: 2;
+        font-size: 1.1rem;
+        color: #e0f2f1;
+        margin-bottom: 1.5rem;
+      }
+      nav ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 0.5rem;
+        position: relative;
+        z-index: 2;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+      }
+      nav a:hover {
+        color: #ffc107; /* Amber accent */
+      }
+
+      main {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+        background-color: white;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border-radius: 10px;
+      }
+
+      section {
+        padding: 2.5rem 0;
+        border-bottom: 1px solid #eee;
+      }
+      section:last-child {
+        border-bottom: none;
+      }
+
+      /* Section specific elements */
+      .highlight-box {
+        background-color: #e0f2f1; /* Light teal background */
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        border-left: 5px solid #004d40;
+      }
+      .highlight-box p {
+        margin: 0;
+        line-height: 1.8;
+      }
+
+      /* Service Cards */
+      .service-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+      .service-card {
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      }
+      .service-card h3 {
+        color: #004d40;
+        font-size: 1.3rem;
+        margin-top: 0;
+        border-bottom: 2px solid #ffc107;
+        padding-bottom: 0.5rem;
+      }
+      .service-card p {
+        font-size: 0.95rem;
+        color: #555;
+      }
+
+      /* Data Tables */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1.5rem;
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+      }
+      th, td {
+        padding: 1rem 0.75rem;
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+      th {
+        background-color: #004d40;
+        color: white;
+        font-weight: 500;
+      }
+      td {
+        background-color: #fcfcfc;
+      }
+      td.center {
+        text-align: center;
+      }
+
+      /* FAQ Accordion */
+      dl dt {
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        padding: 1rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        cursor: pointer;
+        color: #004d40;
+        transition: background-color 0.3s ease;
+      }
+      dl dt:hover {
+        background-color: #ececec;
+      }
+      dl dt::before {
+        content: "+";
+        margin-right: 0.5rem;
+        transition: transform 0.3s ease;
+      }
+      dl dt.active::before {
+        content: "-";
+      }
+      dl dd {
+        margin-left: 0;
+        padding: 1rem;
+        border: 1px solid #eee;
+        border-top: none;
+        background-color: white;
+        display: none;
+      }
+      dl dt.active + dd {
+        display: block;
+      }
+
+      /* Call to Action (CTA) */
+      .cta-area {
+        text-align: center;
+        margin: 2rem 0;
+      }
+      .cta-button {
+        display: inline-block;
+        background-color: #ffc107; /* Amber accent */
+        color: #333;
+        font-weight: 700;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      }
+      .cta-button:hover {
+        background-color: #ffb300;
+        transform: translateY(-2px);
+      }
+
+      /* Keyword Tags */
+      .keyword-tags {
+        margin: 1.5rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .keyword-tags a {
+        background-color: #e0f2f1;
+        color: #004d40;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        border: 1px solid #b2dfdb;
+      }
+      .keyword-tags a:hover {
+        background-color: #b2dfdb;
+      }
+
+      /* Forms for Engagement */
+      .contact-form {
+        background-color: #f9f9f9;
+        padding: 2rem;
+        border-radius: 8px;
+        border: 1px solid #eee;
+        margin-top: 2rem;
+      }
+      .contact-form input[type="text"],
+      .contact-form input[type="tel"],
+      .contact-form select,
+      .contact-form textarea {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      .contact-form button {
+        background-color: #ffc107;
+        color: #333;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .contact-form button:hover {
+        background-color: #ffb300;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 0.9rem;
+        color: #777;
+        background-color: #e0f2f1;
+        margin-top: 2rem;
+      }
+
+      /* Regional Keyword List Formatting */
+      .region-list {
+        columns: 3;
+        column-gap: 20px;
+        list-style: none;
+        padding: 0;
+        margin-bottom: 2rem;
+      }
+      .region-list li {
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+        font-size: 0.95rem;
+      }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>전국 인터넷출장 설치 및 AS 전문 업체</h1>
+        <p>2026년 최신 인터넷 가입 견적부터 당일 출장 AS까지, 전국 어디든 신속하게!</p>
+        <nav>
+            <ul>
+                <li><a href="#service-intro">서비스 소개</a></li>
+                <li><a href="#price-guide">가격 비교 및 견적</a></li>
+                <li><a href="#region-coverage">지역별 출장</a></li>
+                <li><a href="#faq">자주 묻는 질문</a></li>
+                <li><a href="#contact">문의하기</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section id="service-intro">
+            <h2>인터넷출장 서비스, 왜 필요할까요?</h2>
+            <div class="highlight-box">
+                <p><strong>인터넷출장</strong> 서비스는 단순한 인터넷 설치를 넘어, 고장 진단, 속도 개선, 기기 설정 등 복합적인 문제를 현장에서 해결해 드리는 전문 서비스입니다. 특히 <strong>2026년</strong>에는 AI 기반의 스마트 홈 환경이 일반화되면서 인터넷 연결의 안정성이 더욱 중요해지고 있습니다. 저희 업체는 <strong>네이버 웹사이트 상위노출</strong>을 위해 고객 만족 후기를 바탕으로 신뢰를 쌓고 있으며, <strong>구글 검색엔진 최적화</strong>를 통해 고객 접근성을 높여가고 있습니다. 갑작스러운 <strong>인터넷 고장</strong>이나 이사 후 <strong>인터넷 설치</strong>가 필요한 상황에서 신속한 대응이 가능합니다.</p>
+            </div>
+            <p><strong>인터넷출장</strong>을 통해 고객님은 복잡한 설정이나 통신사 AS 대기 시간 없이 전문가의 도움을 받을 수 있습니다. 저희는 <strong>SKT, KT, LGU+</strong> 등 주요 통신사의 상품을 모두 취급하며, 고객님의 사용 환경에 가장 적합한 <strong>인터넷 요금제</strong>를 추천해 드립니다. <strong>인터넷설치비용</strong>을 아끼고 싶다면, 저희 전문 상담사와 상의하세요.</p>
+
+            <div class="keyword-tags" aria-label="연관 키워드">
+                <a href="#price-guide">인터넷출장 비용</a>
+                <a href="#price-guide">인터넷설치 가격</a>
+                <a href="#service-details">인터넷 당일설치</a>
+                <a href="#service-details">인터넷 AS 출장</a>
+                <a href="#region-coverage">전국 인터넷 출장</a>
+                <a href="#price-guide">인터넷 현금지원</a>
+                <a href="#price-guide">인터넷 가입 사은품</a>
+                <a href="#comparison">인터넷 통신사 비교</a>
+                <a href="#reviews">인터넷 전문 업체 후기</a>
+                <a href="#service-details">인터넷 속도 측정</a>
+            </div>
+        </section>
+
+        <section id="service-details">
+            <h2>핵심 출장 서비스 안내</h2>
+            <p>저희 업체는 고객의 다양한 상황에 맞춰 전문적인 출장 서비스를 제공합니다. <strong>인터넷 신규 가입</strong>부터 기존 회선 <strong>고장 수리</strong>까지, 모든 과정을 꼼꼼하게 처리합니다.</p>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>신규 가입 및 설치 출장</h3>
+                    <p><strong>인터넷 신규 가입</strong>을 원하는 고객님께 최적의 요금제 컨설팅을 제공하고, 당일 또는 원하는 날짜에 맞춰 <strong>인터넷 설치</strong>를 진행합니다. 복잡한 서류 절차와 설치 과정을 전문가가 대신 처리하며, <strong>최대 현금지원</strong> 및 <strong>사은품 혜택</strong>을 상세히 안내해 드립니다.</p>
+                </div>
+                <div class="service-card">
+                    <h3>인터넷 고장 진단 및 AS 출장</h3>
+                    <p>인터넷이 갑자기 끊기거나 속도가 느려질 때 <strong>당일 출장 AS</strong>를 통해 문제를 해결해 드립니다. 통신사 고객센터에 연락하여 오랜 시간 대기할 필요 없이, 저희 전문가가 신속하게 방문하여 <strong>인터넷 고장 원인</strong>을 파악하고 수리합니다. <strong>출장비용</strong>이 합리적이며, <strong>전문업체</strong>의 노하우로 재발을 방지합니다.</p>
+                </div>
+                <div class="service-card">
+                    <h3>이사 및 환경 변화에 따른 출장</h3>
+                    <p>이사 후 <strong>인터넷 이전 설치</strong>가 필요하거나, <strong>사무실 인터넷 환경</strong>을 새롭게 구축해야 할 때 <strong>인터넷출장</strong>을 의뢰하세요. <strong>원룸이사</strong>, <strong>포장이사</strong> 후 복잡한 공유기 설정과 배선 정리를 깔끔하게 처리하여 고객 만족도를 높입니다.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Wi-Fi 환경 개선 및 속도 측정 출장</h3>
+                    <p>집안 구석구석 Wi-Fi 음영 지역이 생기거나, <strong>기가 인터넷</strong> 속도가 제대로 나오지 않는 경우 <strong>출장 서비스</strong>를 이용해 보세요. <strong>Wi-Fi 증폭기</strong> 설치 위치 조정, 공유기 교체, <strong>인터넷 속도 측정</strong> 등을 통해 최적의 인터넷 환경을 구축해 드립니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="price-guide">
+            <h2>인터넷출장 비용 및 가격 비교 안내 (2026년 기준)</h2>
+            <p><strong>인터넷출장 비용</strong>은 서비스 종류, 출장 시간대, 통신사 정책 등에 따라 달라집니다. 특히 <strong>신규 가입</strong> 시에는 <strong>설치비 면제</strong> 혜택이 많아 <strong>가장 저렴한 방법</strong>입니다. <strong>인터넷 설치 가격</strong>을 비교할 때, 단순히 월 요금만 볼 것이 아니라 <strong>현금지원</strong>, <strong>사은품</strong>, 결합 할인, <strong>약정 기간</strong> 등을 종합적으로 고려해야 합니다. 아래 표는 대략적인 서비스별 <strong>예상 비용</strong>을 보여줍니다.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>서비스 종류</th>
+                        <th>대략적인 비용 (VAT 포함)</th>
+                        <th>주요 특징 및 혜택</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>인터넷 신규 가입 설치</strong></td>
+                        <td>0원 ~ 27,500원 (설치비)</td>
+                        <td>통신사별 <strong>현금지원</strong> 및 <strong>사은품</strong> 제공, 약정 시 설치비 면제 혜택 많음</td>
+                    </tr>
+                    <tr>
+                        <td><strong>인터넷 고장 AS 출장</strong></td>
+                        <td>11,000원 ~ 22,000원</td>
+                        <td>통신사별 <strong>출장비</strong> 정책 상이, 약정 기간 내 무상 AS 가능성 있음</td>
+                    </tr>
+                    <tr>
+                        <td><strong>이사 및 이전 설치</strong></td>
+                        <td>11,000원 ~ 27,500원</td>
+                        <td>기존 약정 유지 시 발생하는 <strong>이전 설치비용</strong>, 통신사별 상이</td>
+                    </tr>
+                    <tr>
+                        <td><strong>단독 출장 (기기 설정 및 점검)</strong></td>
+                        <td>20,000원 ~ 40,000원</td>
+                        <td>통신사 약정 없이 개인적으로 요청하는 <strong>인터넷출장</strong>, <strong>전문업체</strong> 이용 시 비용 발생</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>저희는 고객님께서 <strong>내돈내산</strong> 후기를 남겨주실 때 만족하실 수 있도록 투명한 <strong>가격</strong> 정책을 고수합니다. <strong>이사비용</strong>을 아끼기 위해 <strong>셀프 설치</strong>를 시도하다가 고장나서 <strong>출장 비용</strong>이 더 발생하는 경우도 많으니, 처음부터 <strong>전문업체</strong>에 문의하는 것이 현명합니다. 저희는 <strong>저렴한곳</strong>, <strong>싼곳</strong>을 찾는 고객님들께도 최고의 가성비를 제공하기 위해 노력합니다.</p>
+
+            <div class="cta-area">
+                <a href="#contact" class="cta-button">무료 견적 상담 받기 (현금지원 문의)</a>
+            </div>
+        </section>
+
+        <section id="comparison">
+            <h2>인터넷 통신사별 비교: 장점, 단점, 차이점 분석</h2>
+            <p>2026년 현재 국내 <strong>인터넷 시장</strong>은 크게 SKT, KT, LGU+ 세 통신사가 주도하고 있습니다. 각 통신사는 고유의 <strong>장단점</strong>과 <strong>혜택</strong>을 가지고 있습니다. <strong>인터넷 가입 순위</strong>는 개인의 사용 환경과 선호하는 결합 상품에 따라 달라지므로, 전문가와의 상담을 통해 <strong>비교</strong>해 보는 것이 중요합니다.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>통신사</th>
+                        <th>강점 (장점)</th>
+                        <th>약점 (단점)</th>
+                        <th>주요 고객층</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>KT</strong></td>
+                        <td>전국망 커버리지(특히 도서 산간), 안정적인 품질</td>
+                        <td>경쟁사 대비 사은품 혜택이 다소 적을 수 있음</td>
+                        <td>안정성을 최우선시하는 고객, 지방 거주 고객</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SKT</strong></td>
+                        <td>SKT 휴대폰 결합 할인 혜택, 대형 통신사의 신뢰성</td>
+                        <td>지역별 속도 편차 발생 가능성, AS 대기 시간</td>
+                        <td>SKT 휴대폰 사용자, 대규모 가족 결합 고객</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LGU+</strong></td>
+                        <td>다양한 IPTV 콘텐츠, OTT 결합 상품, 파격적인 현금지원</td>
+                        <td>지역별 커버리지(특히 외곽)가 KT 대비 약함</td>
+                        <td>IPTV 및 콘텐츠 이용을 중시하는 고객</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>인터넷 비교</strong> 시, 통신사별로 제공하는 <strong>현금지원금</strong>이나 <strong>사은품</strong> 규모가 다릅니다. 이는 <strong>인터넷 가입 혜택</strong>의 핵심이며, <strong>디시인사이드</strong> 등 온라인 커뮤니티에서 <strong>인터넷 가입 후기</strong>를 찾아보면 <strong>현금지원</strong> 규모에 대한 정보가 활발하게 공유됩니다. 저희는 고객님께 <strong>최대 지원금</strong>을 안내해 드리며, <strong>신규 가입</strong> 고객에게 <strong>상품권</strong> 또는 <strong>현금 지원</strong> 혜택을 제공합니다. <strong>2026년</strong>에는 <strong>AI 에이전트</strong>(Gemini, ChatGPT 등)를 활용하여 개인 맞춤형 상품 추천 서비스가 도입될 예정입니다.</p>
+
+            <h3>AI 시대의 인터넷 환경</h3>
+            <p><strong>인터넷출장</strong> 서비스는 <strong>AI</strong> 시대에 더욱 중요해집니다. <strong>ChatGPT</strong>나 <strong>Gemini</strong>와 같은 AI 기술은 대용량 데이터를 빠르게 처리하는 <strong>기가 인터넷</strong> 환경이 필수입니다. <strong>인터넷 속도 측정</strong> 결과가 낮게 나온다면, <strong>출장 서비스</strong>를 통해 <strong>인터넷 회선</strong> 점검을 받아보셔야 합니다. 또한 <strong>네이버</strong>, <strong>구글</strong>과 같은 대형 포털 사이트의 <strong>웹사이트 순위</strong>나 <strong>스니펫</strong> 노출도 인터넷 속도에 영향을 받습니다.</p>
+        </section>
+
+        <section id="region-coverage">
+            <h2>전국 인터넷출장 가능 지역 (30개 이상 지역 키워드)</h2>
+            <p>저희 <strong>인터넷 전문 업체</strong>는 전국 어디든 <strong>인터넷출장</strong>이 가능합니다. 이사 후 <strong>인터넷 설치</strong>가 필요한 <strong>전국 지역</strong> 어디든 신속하게 방문하여 서비스를 제공합니다. 아래는 저희가 주로 서비스를 제공하는 지역 목록입니다. <strong>서울, 경기, 인천</strong> 수도권을 비롯하여 <strong>부산, 대구, 광주</strong> 등 주요 광역시와 지방 소도시까지 커버합니다.</p>
+
+            <ul class="region-list">
+                <li><strong>수도권:</strong> 서울 강남구, 강북구, 강서구, 관악구, 광진구, 구로구, 노원구, 도봉구, 동작구, 마포구, 서대문구, 서초구, 성동구, 성북구, 송파구, 양천구, 영등포구, 용산구, 은평구, 종로구, 중구, 중랑구</li>
+                <li><strong>경기 지역:</strong> 수원시(장안구, 권선구, 팔달구, 영통구), 고양시, 용인시, 성남시, 부천시, 안산시, 안양시, 평택시, 시흥시, 김포시, 광명시, 광주시, 하남시, 남양주시, 화성시, 오산시, 군포시, 의왕시, 과천시, 이천시, 동두천시, 포천시, 양주시, 파주시</li>
+                <li><strong>인천 지역:</strong> 남동구, 부평구, 연수구, 계양구, 미추홀구, 서구, 중구, 동구</li>
+                <li><strong>지방 광역시:</strong> 부산(해운대구, 동래구), 대구(수성구, 달서구), 광주(북구, 서구), 대전(서구, 유성구), 울산(남구, 중구)</li>
+                <li><strong>기타 지방:</strong> 세종특별자치시, 천안시, 아산시, 전주시, 포항시, 창원시, 청주시, 원주시, 춘천시, 제주특별자치도</li>
+            </ul>
+
+            <p><strong>인터넷출장</strong>을 의뢰하실 때, 거주하시는 지역을 명확하게 말씀해 주시면 <strong>가장 저렴한</strong> 요금제와 <strong>최대 현금지원</strong> 혜택을 찾아드립니다. <strong>안산포장이사</strong> 후 <strong>인터넷 이전 설치</strong>가 필요하신 고객님들도 저희에게 문의하시면 <strong>이사비용</strong> 절감에 도움을 드립니다.</p>
+        </section>
+
+        <section id="faq">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+            <dl>
+                <dt tabindex="0" aria-expanded="false" class="accordion-trigger">인터넷출장 시 출장비용은 얼마인가요?</dt>
+                <dd class="accordion-content">출장 비용은 서비스의 종류(신규 가입, AS, 이전 설치)와 통신사별 정책에 따라 상이합니다. 신규 가입 시에는 설치비 면제 혜택을 받을 수 있으며, 고장 AS의 경우 약정 기간 내에는 무상으로 처리되기도 합니다. 정확한 견적은 전화 상담 시 자세히 안내해 드립니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="accordion-trigger">인터넷 설치 시 현금지원은 얼마나 받을 수 있나요?</dt>
+                <dd class="accordion-content">현금지원 금액은 통신사, 요금제, 약정 기간 등에 따라 달라집니다. 저희는 <strong>인터넷 가입 순위</strong> 상위에 있는 상품들을 비교하여 고객님께 <strong>최대 현금지원금</strong>을 받을 수 있도록 컨설팅 해드립니다. <strong>상품권</strong> 또는 <strong>현금 지원</strong> 혜택을 선택하실 수 있습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="accordion-trigger"><strong>인터넷출장</strong>은 얼마나 빨리 오나요? <strong>당일 설치</strong>가 가능한가요?</dt>
+                <dd class="accordion-content">저희는 고객님의 요청을 접수한 후 <strong>최대한 신속한 출장</strong>을 목표로 합니다. 통신사별 상황에 따라 차이가 있을 수 있지만, <strong>당일 설치</strong> 또는 <strong>당일 AS</strong>를 위해 노력하고 있습니다. 급한 상황이라면 전화 문의 시 "<strong>당일출장</strong>"을 요청해 주세요.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="accordion-trigger">이사 후 인터넷 이전 설치 절차가 궁금합니다.</dt>
+                <dd class="accordion-content">이사 전 기존 통신사에 이전 신청을 하고, 이사 당일 또는 이사 후 저희 전문가가 새집에 방문하여 설치를 진행합니다. 이 때 기존 약정 기간이 남아있다면 <strong>이사비용</strong>이 발생할 수 있으므로, 미리 확인해 보세요. 저희는 <strong>안산포장이사</strong> 등 이사 서비스와 연계하여 통합 서비스를 제공하기도 합니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="accordion-trigger">휴대폰 결합 할인이란 무엇인가요?</dt>
+                <dd class="accordion-content">가족이 사용하는 휴대폰 통신사와 인터넷 통신사를 동일하게 결합하여 요금 할인을 받는 제도입니다. <strong>SKT, KT, LGU+</strong> 통신사마다 <strong>결합 할인</strong> 혜택이 다르므로, 저희 <strong>인터넷 전문 업체</strong>에서 고객님께 가장 유리한 결합 상품을 찾아드립니다.</dd>
+            </dl>
+        </section>
+
+        <section id="contact">
+            <h2>인터넷출장 견적 문의 및 상담 신청</h2>
+            <p><strong>인터넷 가입</strong>, <strong>인터넷출장</strong>, <strong>AS 문의</strong> 등 궁금한 점이 있으시면 언제든지 연락 주세요. 전문 상담사가 고객님의 상황을 파악하여 <strong>가장 저렴한 요금제</strong>와 <strong>최대 혜택</strong>을 안내해 드립니다. <strong>이사비용</strong> 절감 노하우와 함께 <strong>인터넷 설치</strong>까지 한 번에 해결하세요.</p>
+
+            <div class="contact-form">
+                <form action="#" method="post">
+                    <input type="text" name="name" placeholder="성함" required>
+                    <input type="tel" name="phone" placeholder="연락처 (예: 010-1234-5678)" required>
+                    <select name="service_type" required>
+                        <option value="">원하시는 서비스 선택</option>
+                        <option value="신규가입">신규 인터넷 가입 (현금지원 문의)</option>
+                        <option value="AS출장">인터넷 고장 AS 출장</option>
+                        <option value="이전설치">이사/이전 설치</option>
+                        <option value="속도개선">속도 개선 및 설정</option>
+                    </select>
+                    <input type="text" name="region" placeholder="출장 희망 지역 (예: 경기도 안산시 단원구)">
+                    <textarea name="message" rows="5" placeholder="궁금한 점이나 요청 사항을 상세히 남겨주세요." required></textarea>
+                    <button type="submit">견적 문의 신청하기</button>
+                </form>
+            </div>
+
+            <p class="contact-details">전화 상담: <strong>010-1234-5678</strong> (24시간 상담 가능)</p>
+        </section>
+
+        <section id="references">
+            <h2>참고 및 신뢰성 확보 외부 링크</h2>
+            <p>정보의 정확성을 위해 공신력 있는 기관의 자료를 참고했습니다. <strong>인터넷출장</strong> 서비스를 선택할 때 반드시 통신 관련 규정을 확인하시기 바랍니다.</p>
+            <ul>
+                <li><a href="https://www.kcc.go.kr/user.do?mode=list&page=1" target="_blank">과학기술정보통신부</a> - 통신 서비스 관련 정책 및 규정 (정부 기관)</li>
+                <li><a href="https://www.kto.or.kr/" target="_blank">한국통신사업자연합회 (KTOA)</a> - 통신 산업 정보 및 소비자 보호 (정부 유관 기관)</li>
+                <li><a href="https://namu.wiki/w/%EC%9D%B8%ED%84%B0%EB%84%B7" target="_blank">나무위키: 인터넷</a> - 인터넷의 역사 및 관련 기술 정보</li>
+                <li><a href="https://www.consumer.go.kr/user/cn/main/index.do" target="_blank">한국소비자원</a> - 인터넷 서비스 관련 소비자 피해 구제 사례 및 가이드 (정부 기관)</li>
+                <li><a href="https://m.kin.naver.com/qna/list.naver?dirId=10107" target="_blank">네이버 지식iN: 인터넷/통신 카테고리</a> - 실시간 사용자 후기 및 질문 참고</li>
+            </ul>
+        </section>
     </main>
-  </body>
-</html>
+
+    <!-- JavaScript for FAQ Accordion functionality -->
+    <script>
+      document.querySelectorAll('.accordion-trigger').forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+          trigger.classList.toggle('active');
+          let content = trigger.nextElementSibling;
+          let expanded = trigger.getAttribute('aria-expanded') === 'true';
+          trigger.setAttribute('aria-expanded', !expanded);
+          if (expanded) {
+            content.style.display = 'none';
+          } else {
+            content.style.display = 'block';
+          }
+        });
+        trigger.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            trigger.click();
+          }
+        });
+      });
+    </script>
+
+  
